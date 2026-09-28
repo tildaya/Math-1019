@@ -1,5 +1,3 @@
-= Recap
-
 = Two more derivations
 De Morgan's Law can be extended:
 
@@ -41,6 +39,7 @@ $ equiv ((p_1 or p_2) or p_3) -> q $
 
 Same rule on the whole expression.
 
+#pagebreak()
 
 =  Satisfiability
 
@@ -111,7 +110,7 @@ For a finite domain
 
 $ not(exists x P(x)) equiv not (P(x_1) or P(x_2) or ... or P(x_n)) $
 
-$ equiv not P(x_1) and not P(x_2) and ... and P(x_n) $
+$ equiv not P(x_1) and not P(x_2) ... and not P(x_n) $
 
 $ equiv forall x P(x) $
 

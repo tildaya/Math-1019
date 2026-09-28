@@ -27,7 +27,7 @@ $p = $ It is raining (hypothesis)
 
 $q = $ "The grass is wet" (conclusion)
 
-(the conclusioon) says it is impossible for the situation "It is raining" and "the grass is wet" to occur simultaneously
+(the conclusion) says it is impossible for the situation "It is raining" and "the grass is wet" to occur simultaneously
 
 #align(center)[
   #table(
@@ -45,7 +45,7 @@ $q = $ "The grass is wet" (conclusion)
 "If it is raining, then the grass is wet."
 
 related to $p -> q$,
-- we have its #underline[inverse]: $not p -> q$
+- we have its #underline[inverse]: $not p -> not q$
   - "If it is not raining, then the grass is wet" (not how the world works)
 - its #underline[converse] : $q -> p$
   - "If the grass is wet, then it is raining"
