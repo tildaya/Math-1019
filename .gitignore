@@ -3,18 +3,18 @@
 !/definitions.typ
 !/definitions.pdf
 !/README.md
-!/January [0-9]*/
-!/February [0-9]*/
-!/March [0-9]*/
-!/April [0-9]*/
-!/May [0-9]*/
-!/June [0-9]*/
-!/July [0-9]*/
-!/August [0-9]*/
-!/September [0-9]*/
-!/October [0-9]*/
-!/November [0-9]*/
-!/December [0-9]*/
+!/January/
+!/February/
+!/March/
+!/April/
+!/May/
+!/June/
+!/July/
+!/August/
+!/September/
+!/October/
+!/November/
+!/December/
 
 .DS_Store
 Thumbs.db
