@@ -239,4 +239,12 @@ consists of all ordered n-tuples:
 
 $(x_1, x_2, ..., x_n)$ such that $x_i in A_i$ for each $i$
 
+== Example
+If $A = {"red", "bluie"}$\
+$B = {1, "red", 2}$
+
+then 
+
+$A times B$ ...
+
 
