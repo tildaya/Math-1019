@@ -8,3 +8,7 @@ If you think something is missing, or there is a mistake, or you want to add mor
 # Structure
 - Each folder is the day the lecture notes have been taken, which usually contains two files, the source code, and the pdf.
 - There is a [definitions](definitions.pdf) which combines all the lecture notes so far, summarized by ChatGPT (I couldn't be bothered writing it myself)
+
+# Resources
+Some additional resources Ive found to be helpful
+[Discrete Math playlist](https://www.youtube.com/playlist?list=PLl-gb0E4MII28GykmtuBXNUNoej-vY5Rz)

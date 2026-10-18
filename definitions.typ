@@ -3,6 +3,7 @@
 #set text(size: 11pt)
 #set par(leading: 0.65em)
 #set heading(numbering: "1.")
+#show terms.item: it => block(breakable: false, it)
 
 #align(center)[
   #text(size: 19pt, weight: "bold")[Math 1019 — Definitions]
@@ -12,7 +13,7 @@
 A cumulative glossary, grouped by topic. Dates identify the lectures where
 the terms appear. Named laws and rules are included for reference. Wording
 and formulas have been clarified where the notes contain transcription errors.
-Coverage: September 11 through October 5.
+Coverage: September 11 through October 9, inclusive.
 
 = Statements and propositions
 #block(sticky: true)[_September 11 and 14_]
@@ -221,6 +222,10 @@ Here $T$ and $F$ denote the constant truth values true and false.
 / Existential quantification: $exists x P(x)$ means “there is at least one
   $x$ in the domain for which $P(x)$ is true.” It does not mean exactly one.
 
+/ Unique existential quantification: $exists! x P(x)$ means “there exists
+  exactly one $x$ in the domain for which $P(x)$ is true.” It asserts both
+  existence and uniqueness. (October 7.)
+
 / Counterexample: An example that disproves a claim. For $forall x P(x)$,
   it is a value $a$ in the domain for which $P(a)$ is false.
 
@@ -246,6 +251,11 @@ Here $T$ and $F$ denote the constant truth values true and false.
   $ forall x forall y P(x, y) equiv forall y forall x P(x, y) $
   $ exists x exists y P(x, y) equiv exists y exists x P(x, y) $
   A universal and an existential quantifier generally cannot be exchanged.
+
+/ Mixed-quantifier implication: A single witness that works for every
+  element also supplies a witness for each element separately:
+  $ (exists x forall y P(x, y)) -> (forall y exists x P(x, y)). $
+  The converse does not hold in general. (September 23.)
 
 / Implicit universal quantifier: A universal quantifier understood from
   context rather than written explicitly. For example, “If $m$ and $n$ are
@@ -599,7 +609,7 @@ All complements below use the same universal set $U$.
   $ |A union B| = |A inter B| + |A without B| + |B without A|. $
 
 = Functions
-#block(sticky: true)[_October 5_]
+#block(sticky: true)[_October 5 and 7_]
 
 / Function: A rule $f: A -> B$ assigning exactly one element of $B$ to
   each element of $A$. Every input in $A$ must have an output, and no input
@@ -628,8 +638,8 @@ All complements below use the same universal set $U$.
 
 == Types of functions named in the notes
 
-The October 5 notes introduce these names. Their defining properties are
-included here for reference, with $f: A -> B$ throughout.
+The October 5 notes introduce these names; October 7 gives their defining
+properties and negations. Let $f: A -> B$ throughout.
 
 / Onto function (surjection): A function whose range equals its codomain.
   Every $y in B$ has at least one pre-image in $A$:
@@ -638,11 +648,177 @@ included here for reference, with $f: A -> B$ throughout.
 / One-to-one function (injection): A function that sends different inputs
   to different outputs. Equivalently,
   $ forall x_1, x_2 in A, (f(x_1) = f(x_2) -> x_1 = x_2). $
+  Equivalently, $x_1 != x_2 -> f(x_1) != f(x_2)$ for all $x_1, x_2 in A$.
   Each element of the codomain has at most one pre-image.
 
 / One-to-one correspondence (bijection): A function that is both
   one-to-one and onto. Each element of the codomain has exactly one
   pre-image in the domain.
+  $ forall y in B, exists! x in A, f(x) = y. $
+
+/ Not injective: Two distinct inputs have the same output:
+  $ exists x_1, x_2 in A, (x_1 != x_2 and f(x_1) = f(x_2)). $
+  One such pair disproves injectivity.
+
+/ Not surjective: Some element of the codomain has no pre-image:
+  $ exists y in B, forall x in A, f(x) != y. $
+  One such element disproves surjectivity.
+
+/ Not bijective: The function is not injective or is not surjective
+  (possibly both). Either of the preceding counterexamples suffices.
+
+== Combining functions
+#block(sticky: true)[_October 7_]
+
+/ Sum of functions: For functions $f, g: A -> B$ with addition defined in
+  $B$ and all resulting sums in $B$, their sum $f + g: A -> B$ is defined by
+  $ (f + g)(x) = f(x) + g(x). $
+
+/ Product of functions: For functions $f, g: A -> B$ with multiplication
+  defined in $B$ and all resulting products in $B$, their product $f g: A -> B$
+  is defined by
+  $ (f g)(x) = f(x) g(x). $
+  This multiplies the outputs at the same input.
+
+/ Composition: If $f: A -> B$ and $g: B -> C$, the composite function
+  $g compose f: A -> C$ is defined by
+  $ (g compose f)(x) = g(f(x)). $
+  Apply $f$ first, then $g$. More generally, composition is defined whenever
+  the range of the inner function lies in the domain of the outer function.
+  Composition need not commute: $g compose f$ and $f compose g$ can differ,
+  and one may be defined when the other is not.
+
+/ Inverse function: If $f: A -> B$ is a bijection, its inverse
+  $f^(-1): B -> A$ sends each $y in B$ to its unique pre-image:
+  $ f^(-1)(y) = x <-> f(x) = y. $
+  An inverse on the entire codomain exists if and only if $f$ is bijective.
+  The inverse reverses the input–output assignment; $f^(-1)$ does not mean
+  the reciprocal $1/f$.
+
+/ Inverse identities: For a bijection $f: A -> B$,
+  $ forall x in A, f^(-1)(f(x)) = x, $
+  $ forall y in B, f(f^(-1)(y)) = y. $
+  For example, $f: RR^+ -> RR^+$ with $f(x) = x^2$ has inverse
+  $f^(-1)(y) = sqrt(y)$. The domain and codomain matter: the rule $x^2$
+  on $RR -> RR$ is neither injective nor surjective.
+
+= Sequences and recursive definitions
+#block(sticky: true)[_October 7 and 9_]
+
+/ Sequence: A function whose domain is a subset of $ZZ$, usually $NN$
+  or $ZZ^+$. A sequence is often written ${a_n}$, with its index set
+  specified when needed. Its values can be listed in index order and
+  need not be numbers.
+
+/ Index and term: The index $n$ is an input to a sequence; the term $a_n$
+  is its output at that index. Subscript notation $a_n$ plays the role of
+  function notation $a(n)$. Check whether indexing begins at 0 or 1.
+
+/ Arithmetic sequence: A numerical sequence with constant difference
+  $d$ between consecutive terms. With initial term $a_0 = a$,
+  $ a_n = a + d n. $
+  Here $a$ is the initial value and $d$ is the common difference.
+  With indexing starting at 1 instead, $a_n = a_1 + (n - 1)d$.
+
+/ Geometric sequence: A numerical sequence in which each term is $r$
+  times the preceding term. With initial term $b_0 = a$,
+  $ b_n = a r^n. $
+  Here $r$ is the common ratio. With indexing starting at 1 instead,
+  $b_n = b_1 r^(n - 1)$. The initial term is specified separately when
+  $r = 0$, avoiding any need to evaluate $0^0$.
+
+/ Recursive definition: A definition giving initial values and a rule
+  for obtaining later terms from earlier terms. For example,
+  $ a_0 = 1; quad a_(n+1) = sum_(i=0)^n a_i quad (n >= 0) $
+  gives the sequence $1, 1, 2, 4, 8, dots$.
+
+/ Recurrence relation: An equation relating terms of a sequence to earlier
+  terms. Initial conditions specify the starting values; together with
+  the recurrence, they determine the sequence under discussion.
+
+/ Fibonacci sequence: The sequence defined recursively by
+  $ f_0 = 0; quad f_1 = 1; quad f_(n+2) = f_n + f_(n+1) quad (n >= 0). $
+  Its first terms are $0, 1, 1, 2, 3, 5, 8, 13, dots$.
+
+/ Explicit formula (closed form): A formula giving a term directly from
+  its index without computing earlier terms. The October 9 notes give
+  the following formula for the Fibonacci sequence, to be studied later:
+  $ f_n = 1/sqrt(5) ( ((1 + sqrt(5))/2)^n - ((1 - sqrt(5))/2)^n ). $
+  Equivalently, for $n >= 0$,
+  $ f_n = floor(1/sqrt(5) ((1 + sqrt(5))/2)^n + 1/2). $
+  Here $floor(t)$ is the greatest integer less than or equal to $t$.
+
+= Summations
+#block(sticky: true)[_October 9_]
+
+/ Summation notation: For integers $m <= n$,
+  $ sum_(i=m)^n a_i = a_m + a_(m+1) + dots + a_n. $
+  The lower limit $m$ is the starting index, the upper limit $n$ is the
+  ending index, and both endpoints are included. The expression $a_i$
+  being added is the summand.
+
+/ Dummy variable (index of summation): The index bound by a summation
+  symbol, such as $i$ in $sum_(i=m)^n a_i$. Renaming it consistently does
+  not change the sum: $sum_(i=m)^n a_i = sum_(j=m)^n a_j$.
+
+/ Empty sum: A sum with no terms, assigned the value 0. In particular,
+  $sum_(i=m)^n a_i = 0$ when $m > n$ under the convention in the notes.
+
+== Summation rules and formulas
+
+The following formulas use nonnegative integer $n$.
+
+/ Linearity of summation: Constants can be factored out and sums can be
+  split term by term:
+  $ sum_(k=m)^n (c a_k + d b_k)
+    = c sum_(k=m)^n a_k + d sum_(k=m)^n b_k. $
+
+/ Changing the lower limit by subtraction: For $1 <= m <= n$,
+  $ sum_(k=m)^n a_k = sum_(k=1)^n a_k - sum_(k=1)^(m-1) a_k. $
+  This removes the unwanted initial terms from a known sum.
+
+/ Sum of consecutive integers:
+  $ sum_(k=0)^n k = sum_(k=1)^n k = (n(n+1))/2. $
+
+/ Finite geometric sum: For $r != 1$,
+  $ sum_(k=0)^n r^k = (1 - r^(n+1))/(1 - r). $
+  If $r = 1$, the sum is $n + 1$. With initial term $a$, multiply the
+  right-hand side by $a$ to sum $a + a r + dots + a r^n$.
+
+/ Sum of squares:
+  $ sum_(k=1)^n k^2 = (n(n+1)(2n+1))/6. $
+
+/ Sum of cubes:
+  $ sum_(k=1)^n k^3 = ((n(n+1))/2)^2. $
+
+= Cardinalities of finite and infinite sets
+#block(sticky: true)[_October 9_]
+
+/ Same cardinality (equinumerous sets): Sets $S$ and $T$ have the same
+  cardinality, written $|S| = |T|$, if there exists a bijection $f: S -> T$.
+  This extends the finite notion of having the same number of elements
+  to infinite sets.
+
+/ Cardinality comparison: $|S| <= |T|$ means that there exists an
+  injection $f: S -> T$. Thus distinct elements of $S$ can be assigned
+  distinct elements of $T$.
+
+/ Transitivity of cardinality equality: If $|S| = |T|$ and $|T| = |R|$,
+  then $|S| = |R|$. Composing the two bijections gives a bijection
+  from $S$ to $R$.
+
+/ Transitivity of cardinality comparison: If $|S| <= |T|$ and
+  $|T| <= |R|$, then $|S| <= |R|$. Composing the two injections gives
+  an injection from $S$ to $R$.
+
+/ Schröder–Bernstein theorem: If $|S| <= |T|$ and $|T| <= |S|$, then
+  $|S| = |T|$. Injections in both directions guarantee that a bijection
+  exists. The theorem is stated without proof in the October 9 notes.
+
+The infinite-set equalities stated in that lecture are
+$ |NN| = |ZZ^+| = |ZZ|; quad |NN times NN| = |NN|. $
+An infinite set can have the same cardinality as a proper subset of itself;
+for example, $n mapsto n + 1$ is a bijection from $NN$ to $ZZ^+$.
 
 = Corrections applied in this glossary
 
@@ -661,3 +837,19 @@ included here for reference, with $f: A -> B$ throughout.
   for union, so the distributive example begins with $(A inter B) union C$.
   A function assigns exactly one output to each input; an output can have
   several pre-images.
+- October 7: the sum of functions is defined by
+  $(f + g)(x) = f(x) + g(x)$. Composition requires compatible inputs and
+  outputs; unequal domain and codomain sets alone do not rule it out.
+  The second inverse identity is $f(f^(-1)(y)) = y$ for $y in B$.
+  For the square function on all real inputs, use $RR$ (or the nonnegative
+  reals) as codomain, since $0^2 = 0$ is not a positive real number.
+- October 9: the geometric-sum formula uses one consistent upper index
+  $n$ and exponent $n + 1$; its $r = 1$ case has $n + 1$ terms.
+  The sum-of-cubes formula is $((n(n+1))/2)^2$.
+  In the lower-limit example, the correct expansion is
+  $ sum_(k=9)^15 (3k^3 - 7k^2)
+    = 3 sum_(k=1)^15 k^3 - 3 sum_(k=1)^8 k^3
+      - 7 sum_(k=1)^15 k^2 + 7 sum_(k=1)^8 k^2. $
+  For a finite set of size $k$, the counting bijection uses
+  ${1, dots, k}$ (the empty set if $k = 0$), rather than always
+  ${1, 2, 3, 4, 5}$. The cardinality theorem is named Schröder–Bernstein.
